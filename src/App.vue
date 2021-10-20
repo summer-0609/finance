@@ -1,10 +1,30 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
+  <ConfigProvider :locale="locale">
+    <router-view />
+  </ConfigProvider>
 </template>
+
+<script>
+import { defineComponent } from "vue";
+import { ConfigProvider } from "ant-design-vue";
+
+import zhCN from "ant-design-vue/lib/locale-provider/zh_CN";
+import moment from "moment";
+import "moment/dist/locale/zh-cn";
+
+moment.locale("zh-cn");
+
+export default defineComponent({
+  components: {
+    ConfigProvider,
+  },
+  setup() {
+    return {
+      locale: zhCN,
+    };
+  },
+});
+</script>
 
 <style lang="less">
 #app {
@@ -12,19 +32,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgb(236, 236, 236);
 }
 </style>
